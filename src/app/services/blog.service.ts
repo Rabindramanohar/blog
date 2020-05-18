@@ -39,4 +39,9 @@ export class BlogService {
   deletePost(postId: string) {
     return this.db.doc('blog/' +postId).delete();
   }
+
+  updatePost(postId: string, post: Post) {
+    const putData = JSON.parse(JSON.stringify(post));
+    return this.db.doc('blog/' +postId).update(putData);
+  }
 }

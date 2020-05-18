@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Post } from 'src/app/models/post.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { BlogService } from 'src/app/services/blog.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-blog-editor',
@@ -11,18 +13,23 @@ import { BlogService } from 'src/app/services/blog.service';
   styleUrls: ['./blog-editor.component.scss'],
   providers: [DatePipe]
 })
-export class BlogEditorComponent implements OnInit {
+export class BlogEditorComponent implements OnInit, OnDestroy {
 
   public Editor = ClassicEditor;
   ckeConfig: any;
   postData = new Post;
   formTitle = 'Add';
   postId = '';
+  private unsubscribe$= new Subject<void>();
 
   constructor(private route: ActivatedRoute,
               private datePipe: DatePipe,
               private blogService: BlogService,
-              private router: Router) { }
+              private router: Router,) {
+                if (this.route.snapshot.params['id']) {
+                  this.postId = this.route.snapshot.paramMap.get('id');
+                }
+              }
 
   setEditorConfig() {
     this.ckeConfig = {
@@ -43,10 +50,21 @@ export class BlogEditorComponent implements OnInit {
   }
 
   saveBlogPost() {
-    this.postData.createdDate = this.datePipe.transform(Date.now(), 'MM-dd-yyyy HH:mm');
-    this.blogService.createPost(this.postData).then(()=> {
-      this.router.navigate(['/']);
-    })
+    if (this.postId) {
+      this.blogService.updatePost(this.postId, this.postData).then( () => {
+        this.router.navigate(['/']);
+      });
+    } else {
+      this.postData.createdDate = this.datePipe.transform(Date.now(), 'MM-dd-yyyy HH:mm');
+      this.blogService.createPost(this.postData).then (()=> {
+        this.router.navigate(['/'])
+      });
+    }
+  }
+
+  setPostFormData(postFormData) {
+    this.postData.title = postFormData.title;
+    this.postData.content = postFormData.content;
   }
 
   cancel() {
@@ -55,6 +73,20 @@ export class BlogEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.setEditorConfig();
+    
+    if(this.postId) {
+      this.formTitle = 'Edit';
+      this.blogService.getPostbyId(this.postId)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe( result => {
+        this.setPostFormData(result);
+      });
+    }
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

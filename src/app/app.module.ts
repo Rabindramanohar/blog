@@ -39,6 +39,7 @@ import { BlogComponent } from './components/blog/blog.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'addpost', component: BlogEditorComponent },
       { path: 'blog/:id/:slug', component: BlogComponent },
+      { path: 'editpost/:id', component: BlogEditorComponent },
       { path: '**', component: HomeComponent },
     ]),
     FormsModule,
