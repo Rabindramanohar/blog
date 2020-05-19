@@ -1,0 +1,15 @@
+.my-pagination ::ng-deep .ngs-pagination {
+    margin: 10px 0px 10px 0px;
+    padding-inline-start: 0px;
+}
+.paginator-control {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 420px) {
+    .paginator-control {
+        flex-direction: column-reverse;
+    }
+}

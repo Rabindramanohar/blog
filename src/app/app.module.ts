@@ -17,6 +17,8 @@ import { ExcerptPipe } from './customPipes/excerpt.pipe';
 import { SlugPipe } from './customPipes/slug.pipe';
 import { BlogCardComponent } from './components/blog-card/blog-card.component';
 import { BlogComponent } from './components/blog/blog.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { BlogComponent } from './components/blog/blog.component';
     ExcerptPipe,
     SlugPipe,
     BlogCardComponent,
-    BlogComponent
+    BlogComponent,
+    PaginatorComponent
   ],
   imports: [
     BrowserModule,
@@ -40,10 +43,12 @@ import { BlogComponent } from './components/blog/blog.component';
       { path: 'addpost', component: BlogEditorComponent },
       { path: 'blog/:id/:slug', component: BlogComponent },
       { path: 'editpost/:id', component: BlogEditorComponent },
+      { path: 'page/:pagenum', component: HomeComponent }, 
       { path: '**', component: HomeComponent },
     ]),
     FormsModule,
     CKEditorModule,
+    NgxPaginationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
