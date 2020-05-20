@@ -19,6 +19,8 @@ import { BlogCardComponent } from './components/blog-card/blog-card.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import { AngularFireAuthModule } from '@angular/fire/auth/public_api';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -44,11 +46,13 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
       { path: 'blog/:id/:slug', component: BlogComponent },
       { path: 'editpost/:id', component: BlogEditorComponent },
       { path: 'page/:pagenum', component: HomeComponent }, 
+      { path: 'addpost', component: BlogEditorComponent, canActivate: [AuthGuard] },
       { path: '**', component: HomeComponent },
     ]),
     FormsModule,
     CKEditorModule,
     NgxPaginationModule,
+    AngularFireAuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

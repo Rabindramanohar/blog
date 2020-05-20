@@ -6,6 +6,8 @@ import { DatePipe } from '@angular/common';
 import { BlogService } from 'src/app/services/blog.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Appuser } from 'src/app/models/appuser';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-blog-editor',
@@ -21,11 +23,13 @@ export class BlogEditorComponent implements OnInit, OnDestroy {
   formTitle = 'Add';
   postId = '';
   private unsubscribe$= new Subject<void>();
+  appUser: Appuser;
 
   constructor(private route: ActivatedRoute,
               private datePipe: DatePipe,
               private blogService: BlogService,
-              private router: Router,) {
+              private router: Router,
+              private authService: AuthService) {
                 if (this.route.snapshot.params['id']) {
                   this.postId = this.route.snapshot.paramMap.get('id');
                 }
@@ -56,6 +60,7 @@ export class BlogEditorComponent implements OnInit, OnDestroy {
       });
     } else {
       this.postData.createdDate = this.datePipe.transform(Date.now(), 'MM-dd-yyyy HH:mm');
+      this.postData.author = this.appUser.name;
       this.blogService.createPost(this.postData).then (()=> {
         this.router.navigate(['/'])
       });
@@ -82,6 +87,8 @@ export class BlogEditorComponent implements OnInit, OnDestroy {
         this.setPostFormData(result);
       });
     }
+
+    this.authService.appUser$.subscribe(appUser => this.appUser = appUser);
   }
 
   ngOnDestroy() {

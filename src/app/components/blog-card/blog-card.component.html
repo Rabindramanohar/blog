@@ -20,10 +20,14 @@
                     <mat-card-actions align="end">
                         <ng-container>
                             <button mat-raised-button color="accent" [routerLink]="['/editpost', post.postId]">
-                            Edit
+                                <ng-container *ngIf="appUser">
+                                Edit
+                                </ng-container>
                             </button>
                             <button mat-raised-button color="warn" (click)="delete(post.postId)">
-                                Delete
+                                <ng-container *ngIf="appUser">
+                                    Delete
+                                </ng-container>
                             </button>
                         </ng-container><span class="spacer"></span>
                         <button mar-raised-button color="primary" [routerLink]="['/blog/', post.postId, post.title | slug]">
