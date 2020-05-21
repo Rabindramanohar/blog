@@ -77,6 +77,9 @@ export class BlogEditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+    this.authService.appUser$.subscribe(appUser => this.appUser = appUser);
+    
     this.setEditorConfig();
     
     if(this.postId) {
@@ -87,8 +90,6 @@ export class BlogEditorComponent implements OnInit, OnDestroy {
         this.setPostFormData(result);
       });
     }
-
-    this.authService.appUser$.subscribe(appUser => this.appUser = appUser);
   }
 
   ngOnDestroy() {

@@ -19,8 +19,9 @@ import { BlogCardComponent } from './components/blog-card/blog-card.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginatorComponent } from './components/paginator/paginator.component';
-import { AngularFireAuthModule } from '@angular/fire/auth/public_api';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthGuard } from './guards/auth.guard';
+import { AdminAuthGuard } from './guards/admin-auth.guard';
 
 @NgModule({
   declarations: [
@@ -42,11 +43,10 @@ import { AuthGuard } from './guards/auth.guard';
     NgMaterialModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'addpost', component: BlogEditorComponent },
-      { path: 'blog/:id/:slug', component: BlogComponent },
-      { path: 'editpost/:id', component: BlogEditorComponent },
-      { path: 'page/:pagenum', component: HomeComponent }, 
       { path: 'addpost', component: BlogEditorComponent, canActivate: [AuthGuard] },
+      { path: 'blog/:id/:slug', component: BlogComponent },
+      { path: 'editpost/:id', component: BlogEditorComponent, canActivate: [AdminAuthGuard] },
+      { path: 'page/:pagenum', component: HomeComponent },
       { path: '**', component: HomeComponent },
     ]),
     FormsModule,

@@ -14,20 +14,25 @@ export class AuthService {
 
   appUser$: Observable<Appuser>;
 
-  constructor(public afAuth: AngularFireAuth,
-              private route: ActivatedRoute,
-              private router: Router,
-              private db: AngularFirestore) {
-                this.appUser$ = afAuth.authState.pipe(
-                  switchMap(user => {
-                    if(user) {
-                      return this.db.doc<Appuser>(`appusers/${user.uid}`).valueChanges();
-                    } else {
-                      return of(null);
-                    }
-                  })
-                )
-              }
+  constructor(
+    public afAuth: AngularFireAuth,
+    private route: ActivatedRoute,
+    private router: Router,
+    private db: AngularFirestore) {
+
+    // Get the auth state, then fetch the Firestore user document or return null
+    this.appUser$ = this.afAuth.authState.pipe(
+      switchMap(user => {
+        // If the user is logged in, return the user details.
+        if (user) {
+          return this.db.doc<Appuser>(`appusers/${user.uid}`).valueChanges();
+        } else {
+          // If the user is NOT logged in, return null.
+          return of(null);
+        }
+      })
+    );
+  }
 
   private updateUserData(user) {
     const userRef = this.db.doc(`appusers/${user.id}`);
@@ -49,7 +54,7 @@ export class AuthService {
   }
 
   async logout() {
-    this.afAuth.signOut().then(() => {
+    await this.afAuth.signOut().then(() => {
       this.router.navigate(['/']);
     });
   }
