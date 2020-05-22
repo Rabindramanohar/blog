@@ -43,11 +43,11 @@ import { AdminAuthGuard } from './guards/admin-auth.guard';
     NgMaterialModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'addpost', component: BlogEditorComponent, canActivate: [AuthGuard] },
-      { path: 'blog/:id/:slug', component: BlogComponent },
-      { path: 'editpost/:id', component: BlogEditorComponent, canActivate: [AdminAuthGuard] },
       { path: 'page/:pagenum', component: HomeComponent },
-      { path: '**', component: HomeComponent },
+      { path: 'addpost', component: BlogEditorComponent, canActivate: [AuthGuard] },
+      { path: 'editpost/:id', component: BlogEditorComponent, canActivate: [AdminAuthGuard] },
+      { path: 'blog/:id/:slug', component: BlogComponent },
+      { path: '**', component: HomeComponent }
     ]),
     FormsModule,
     CKEditorModule,

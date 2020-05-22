@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { ActivatedRoute } from '@angular/router';
-import { Appuser } from 'src/app/models/appuser';
+import { AppUser } from 'src/app/models/appuser';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -17,7 +17,9 @@ export class BlogCardComponent implements OnInit, OnDestroy {
 
   config: any;
   pageSizeOptions = [];
-  appUser: Appuser;
+  blogPost: Post[] = [];
+  private unsubscribe$ = new Subject<void>();
+  appUser: AppUser;
 
 
   constructor(private blogService: BlogService,
@@ -32,18 +34,17 @@ export class BlogCardComponent implements OnInit, OnDestroy {
                 };
               }
 
-  blogPost: Post[] = [];
-  private unsubscribe$ = new Subject<void>();
+              ngOnInit() {
 
-  ngOnInit(): void {
-    this.getBlogPosts();
-    this.route.params.subscribe( param => {
-      this.config.currentPage = +param['pagenum'];
-      this.getBlogPosts();
-
-      this.authService.appUser$.subscribe(appUser => this.appUser = appUser);
-    })
-  }
+                this.authService.appUser$.subscribe(appUser => this.appUser = appUser);
+            
+                this.route.params.subscribe(
+                  params => {
+                    this.config.currentPage = +params['pagenum'];
+                    this.getBlogPosts();
+                  }
+                );
+              }
 
   getBlogPosts() {
     this.blogService.getAllPosts().pipe(

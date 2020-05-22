@@ -1,4 +1,4 @@
-export class Appuser {
+export class AppUser {
     name: string;
     email: string;
     isAdmin: boolean;

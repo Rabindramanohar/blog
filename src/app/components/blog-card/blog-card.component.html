@@ -19,14 +19,13 @@
                     <mat-divider></mat-divider>
                     <mat-card-actions align="end">
                         <ng-container *ngIf="appUser?.isAdmin">
-                            <button mat-raised-button color="accent" [routerLink]="['/editpost',post.postId]">Edit</button>
-                            <button mat-raised-button color="warn" (click)="delete(post.postId)">Delete</button>
+                          <button mat-raised-button color="accent" [routerLink]="['/editpost',post.postId]">Edit</button>
+                          <button mat-raised-button color="warn" (click)="delete(post.postId)">Delete</button>
                         </ng-container>
                         <span class="spacer"></span>
-                        <button mar-raised-button color="primary" [routerLink]="['/blog/', post.postId, post.title | slug]">
-                        Read More
-                        </button>
-                    </mat-card-actions>
+                        <button mat-raised-button color="primary" [routerLink]="['/blog/', post.postId, post.title | slug]">Read
+                          More</button>
+                      </mat-card-actions>
                 </mat-card>
             </div>
             <mat-divider></mat-divider>

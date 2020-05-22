@@ -1,7 +1,7 @@
-import { Appuser } from './appuser';
+import { AppUser } from './appuser';
 
 describe('Appuser', () => {
   it('should create an instance', () => {
-    expect(new Appuser()).toBeTruthy();
+    expect(new AppUser()).toBeTruthy();
   });
 });
