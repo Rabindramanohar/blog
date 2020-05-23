@@ -22,6 +22,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
+import { AuthorProfileComponent } from './components/author-profile/author-profile.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AdminAuthGuard } from './guards/admin-auth.guard';
     SlugPipe,
     BlogCardComponent,
     BlogComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    AuthorProfileComponent
   ],
   imports: [
     BrowserModule,
