@@ -23,6 +23,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
 import { AuthorProfileComponent } from './components/author-profile/author-profile.component';
+import { ScrollerComponent } from './components/scroller/scroller.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AuthorProfileComponent } from './components/author-profile/author-profi
     BlogCardComponent,
     BlogComponent,
     PaginatorComponent,
-    AuthorProfileComponent
+    AuthorProfileComponent,
+    ScrollerComponent
   ],
   imports: [
     BrowserModule,
