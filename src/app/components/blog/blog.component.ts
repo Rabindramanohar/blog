@@ -13,11 +13,12 @@ import { takeUntil } from 'rxjs/operators';
 export class BlogComponent implements OnInit, OnDestroy {
 
   postData: Post = new Post();
-  postId;
+  postId: string;
   private unsubscribe$ = new Subject<void>();
   
 
-  constructor(private route: ActivatedRoute, private blogService: BlogService) { 
+  constructor(private route: ActivatedRoute, 
+              private blogService: BlogService) { 
     if(this.route.snapshot.params['id']) {
       this.postId = this.route.snapshot.paramMap.get('id');
     }

@@ -50,7 +50,7 @@ export class AuthService {
   }
 
   // Save the user data to firestore on login
-  private updateUserData(user) {
+  private updateUserData(user: firebase.User) {
     const userRef = this.db.doc(`appusers/${user.uid}`);
     const data = {
       name: user.displayName,
