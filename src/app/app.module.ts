@@ -25,6 +25,14 @@ import { AdminAuthGuard } from './guards/admin-auth.guard';
 import { AuthorProfileComponent } from './components/author-profile/author-profile.component';
 import { ScrollerComponent } from './components/scroller/scroller.component';
 import { CommentsComponent } from './components/comments/comments.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ShareButtonsConfig, ShareModule } from '@ngx-share/core';
+import { SocialShareComponent } from './components/social-share/social-share.component';
+
+const customConfig: ShareButtonsConfig = {
+  twitterAccount: 'rabindramanohar'
+};
 
 @NgModule({
   declarations: [
@@ -39,7 +47,8 @@ import { CommentsComponent } from './components/comments/comments.component';
     PaginatorComponent,
     AuthorProfileComponent,
     ScrollerComponent,
-    CommentsComponent
+    CommentsComponent,
+    SocialShareComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +68,9 @@ import { CommentsComponent } from './components/comments/comments.component';
     CKEditorModule,
     NgxPaginationModule,
     AngularFireAuthModule,
+    HttpClientModule,
+    FontAwesomeModule,
+    ShareModule.withConfig(customConfig),
   ],
   providers: [],
   bootstrap: [AppComponent]
