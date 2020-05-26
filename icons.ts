@@ -7,7 +7,6 @@ import { faWhatsapp } from '@fortawesome/free-brands-svg-icons/faWhatsapp';
 import { faPrint } from '@fortawesome/free-solid-svg-icons/faPrint';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
 
-
 export const iconpack = [
     faFacebookF, faTwitter, faLinkedinIn, faRedditAlien,
     faTelegramPlane, faWhatsapp, faEnvelope, faPrint
